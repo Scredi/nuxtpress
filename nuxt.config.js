@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    wordpressApiBaseUrl: 'https://public-api.wordpress.com/wp/v2/sites/yannboisselier.wordpress.com',
-    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://test.fr/api' : 'http://localhost:3000/api'
+    wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2',
+    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nom-de-domaine/api' : 'http://localhost:3000/api'
   },
   router: {
     middleware: [
