@@ -14,7 +14,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: 'SEO content accueil'
+            content: 'Un front-end wordpress SEO friendly en vue.js'
           }
         ]
       }
