@@ -8,6 +8,7 @@
 
   export default {
     components: { Posts },
+    watchQuery: ['page'],
     head () {
       return {
         title: `Blog`,
@@ -40,8 +41,8 @@
         ]
       }
     },
-    async asyncData ({params}) {
-      const posts = await getPaginatedPosts(10, params.query ? params.query.page : 1)
+    async asyncData ({ params, query }) {
+      const posts = await getPaginatedPosts(10, query ? query.page : 1)
       return {
         posts
       }

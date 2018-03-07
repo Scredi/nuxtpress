@@ -2,7 +2,7 @@
     <nav v-if="totalPages > 1">
         <ul>
             <li v-for="n in totalPages">
-                <nuxt-link :to="{ name: getRouteName, query:{ page: n } }">{{ n }}</nuxt-link>
+                <nuxt-link :key="n" :to="{ name: getRouteName, query: { page: n } }">{{ n }}</nuxt-link>
             </li>
         </ul>
     </nav>
@@ -25,3 +25,17 @@
     }
   }
 </script>
+
+<style lang="scss">
+    nav {
+
+        ul {
+            list-style: none;
+
+            li {
+                display: inline-block;
+                padding: 5px;
+            }
+        }
+    }
+</style>
