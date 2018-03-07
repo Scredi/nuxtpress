@@ -28,11 +28,11 @@
               content: 'post'
             },
             {
-              property: 'twitter:title',
+              name: 'twitter:title',
               content: 'Accueil'
             },
             {
-              property: 'twitter:description',
+              name: 'twitter:description',
               content: 'Accueil - Un front-end wordpress SEO friendly en vue.js'
             }
           ]

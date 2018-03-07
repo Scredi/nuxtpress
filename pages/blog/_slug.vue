@@ -40,15 +40,15 @@
             content: this.post._embedded['wp:featuredmedia'][0].source_url
           },
           {
-            property: 'twitter:title',
+            name: 'twitter:title',
             content: this.post.title.rendered
           },
           {
-            property: 'twitter:description',
+            name: 'twitter:description',
             content: removeTags(this.post.excerpt.rendered)
           },
           {
-            property: 'twitter:image',
+            name: 'twitter:image',
             content: this.post._embedded['wp:featuredmedia'][0].source_url
           }
         ]
