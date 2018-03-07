@@ -1,6 +1,6 @@
 <!-- Display a full post object -->
 <template>
-    <div>
+    <div class="post">
         <div>
             <section>
                 <h1 v-html="post.title.rendered"></h1>
@@ -23,5 +23,8 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .post {
+        max-width: 60%;
+        margin: 0 auto;
+    }
 </style>
