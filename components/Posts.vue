@@ -44,7 +44,7 @@
         h2 {
             margin-bottom: 1rem
         }
-        .item-enter-active, .item-leave-active {
+        .item-enter-active {
             transition: all .5s;
         }
         .item-enter, .item-leave-to {
@@ -55,8 +55,8 @@
             opacity: 1;
         }
         .item-leave-active {
-            position: absolute;
             opacity: 0;
+            position: absolute;
         }
     }
 </style>
