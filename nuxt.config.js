@@ -8,6 +8,10 @@ module.exports = {
       'ssr-cookie'
     ]
   },
+  transition: {
+    name: 'page',
+    mode: 'out-in'
+  },
   /*
   ** Headers of the page
   */

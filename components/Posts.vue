@@ -1,39 +1,29 @@
 <!-- Post list as teasers -->
 <template>
-    <section>
-        <div v-for="post in posts.data">
-
-            <div>
-
-                <div>
-
-                    <div>
-                        <img v-if="post.featured_media_url" :src="post.featured_media_url" />
-                    </div>
-
+        <section>
+            <transition-group tag="div" name="item" mode="out-in">
+                <div v-for="post in posts.data" :key="post.id">
+                        <div>
+                            <div>
+                                <div>
+                                    <img v-if="post.featured_media_url" :src="post.featured_media_url" />
+                                </div>
+                            </div>
+                            <div>
+                                <nuxt-link :to="{ name: 'blog-slug', params: { slug: post.slug, post: post } }">
+                                    <h2 v-html="post.title.rendered"></h2>
+                                </nuxt-link>
+                                <div v-html="post.excerpt.rendered"></div>
+                                <div>
+                                    <nuxt-link :to="{ name: 'blog-slug', params: { slug: post.slug, post: post } }"> Lire l'article </nuxt-link>
+                                </div>
+                            </div>
+                        </div>
+                    <hr />
                 </div>
-
-                <div>
-
-                    <nuxt-link :to="{ name: 'blog-slug', params: { slug: post.slug, post: post } }">
-                        <h2 v-html="post.title.rendered"></h2>
-                    </nuxt-link>
-
-                    <div v-html="post.excerpt.rendered"></div>
-
-                    <div>
-                        <nuxt-link :to="{ name: 'blog-slug', params: { slug: post.slug, post: post } }"> Lire l'article </nuxt-link>
-                    </div>
-
-                </div>
-            </div>
-            <hr />
-
-        </div>
-
-        <Pagination :totalPages="posts.totalPages" />
-
-    </section>
+            </transition-group>
+            <Pagination :totalPages="posts.totalPages" />
+        </section>
 </template>
 
 <script>
@@ -47,7 +37,23 @@
 </script>
 
 <style lang="scss" scoped>
-    h2 {
-        margin-bottom: 1rem
+    section {
+        width: 60%;
+        margin: 0 auto;
+
+        h2 {
+            margin-bottom: 1rem
+        }
+        .item-enter-active, .item-leave-active {
+            transition: all .5s;
+        }
+        .item-enter, .item-leave-to {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        .item-leave-active {
+            position: absolute;
+            opacity: 0;
+        }
     }
 </style>

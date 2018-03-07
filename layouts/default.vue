@@ -1,14 +1,10 @@
 <template>
   <div>
-
     <Header/>
-
     <main class="container">
       <nuxt />
     </main>
-
     <Footer/>
-
   </div>
 </template>
 
@@ -25,11 +21,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container
-{
+.container {
   margin: 0;
   width: 100%;
   padding: 100px 0;
   text-align: center;
+  transition: all .5s;
 }
 </style>

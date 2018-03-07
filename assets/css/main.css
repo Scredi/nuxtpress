@@ -7,3 +7,9 @@ html, body
   height: 100vh;
   margin: 0;
 }
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
+}

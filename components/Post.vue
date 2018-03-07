@@ -6,7 +6,6 @@
                 <h1 v-html="post.title.rendered"></h1>
             </section>
         </div>
-
         <div>
             <section>
                 <div v-html="post.content.rendered"></div>
