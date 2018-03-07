@@ -21,12 +21,12 @@ cachios.getResponseCopy = response => {
 
 router.get('/cache', (req, res) => {
   res.send(JSON.stringify(cachios.cache.getStats()))
-});
+})
 
 router.get('/cache/flush', (req, res) => {
   cachios.cache.flushAll()
   res.send('caches vidés')
-});
+})
 
 // by default, just pass the request to Wordpress api and cache it with cachios
 router.get('*', async (req, res) => {

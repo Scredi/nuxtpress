@@ -1,10 +1,12 @@
 <template>
   <footer>
-    Visit our website for more documentation : <a href="https://nuxtjs.org" target="_blank">nuxtjs.org</a>
+    NuxtPress Footer
   </footer>
 </template>
+
 <style lang="scss" scoped>
   footer {
     text-align: center;
+    padding: 50px 0;
   }
 </style>

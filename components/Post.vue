@@ -3,9 +3,7 @@
     <div>
         <div>
             <section>
-                <div v-bind:style="{ 'background-image': 'url(' + post.featured_media_url + ')' }">
-                    <h1 v-html="post.title.rendered"></h1>
-                </div>
+                <h1 v-html="post.title.rendered"></h1>
             </section>
         </div>
 
@@ -20,7 +18,7 @@
 <script>
   export default {
     props: {
-      post: { type: Object, default: {} }
+      post: { type: Object, default: () => {} }
     }
   }
 </script>
