@@ -49,7 +49,10 @@
         }
         .item-enter, .item-leave-to {
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateX(30px);
+        }
+        .item-leave, .item-enter-to {
+            opacity: 1;
         }
         .item-leave-active {
             position: absolute;
