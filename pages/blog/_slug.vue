@@ -7,6 +7,7 @@
   import Post from '~/components/Post'
 
   const removeTags = string => string.replace(/<(.|\n)*?>/g, '')
+  const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 
   export default {
     components: { Post },
@@ -37,7 +38,7 @@
           },
           {
             property: 'og:image',
-            content: this.post._embedded['wp:featuredmedia'][0].source_url
+            content: validateImg(this.post._embedded['wp:featuredmedia'])
           },
           {
             name: 'twitter:title',
@@ -49,7 +50,7 @@
           },
           {
             name: 'twitter:image',
-            content: this.post._embedded['wp:featuredmedia'][0].source_url
+            content: validateImg(this.post._embedded['wp:featuredmedia'])
           }
         ]
       }

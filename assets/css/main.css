@@ -8,8 +8,23 @@ html, body {
   overflow-x: hidden;
 }
 .page-enter-active, .page-leave-active {
-  transition: opacity .5s;
+  transition: .5s ease;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
+}
+.slide-left-enter, .slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+.slide-right-enter, .slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+.slide-left-enter-active, .slide-right-enter-active, .slide-left-leave-active, .slide-right-leave-active {
+  transition: transform .18s ease-in-out, opacity .18s ease-in-out;
+}
+.slide-left-enter-to, .slide-right-enter-to {
+  transform: translateX(0);
+  opacity: 1;
 }
