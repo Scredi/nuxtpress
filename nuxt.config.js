@@ -4,6 +4,7 @@ module.exports = {
     proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nom-de-domaine/api' : 'http://localhost:3000/api'
   },
   router: {
+    base: '/',
     middleware: [
       'ssr-cookie'
     ]
@@ -12,6 +13,9 @@ module.exports = {
     name: 'page',
     mode: 'out-in'
   },
+  noScript: [
+    { innerHTML: 'Javascript est requis pour parcourir ce site.' }
+  ],
   /*
   ** Headers of the page
   */
@@ -33,6 +37,17 @@ module.exports = {
     'normalize.css/normalize.css',
     '~/assets/css/main.css'
   ],
+  /*
+   ** Minification options for build
+   */
+  minify: {
+    removeEmptyAttributes: false,
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    collapseBooleanAttributes: true,
+    removeTagWhitespace: false,
+    removeStyleLinkTypeAttributes: true
+  },
   /*
   ** Add axios globally
   */
