@@ -32,6 +32,10 @@
     props: {
       posts: { type: Object, default: () => {} }
     },
+    name: 'posts',
+    serverCacheKey () {
+      return Math.floor(Date.now() / 1000000)
+    },
     components: { Pagination }
   }
 </script>

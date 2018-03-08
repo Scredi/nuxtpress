@@ -18,6 +18,10 @@
         routeName: { type: String, default: '' }
       }
     },
+    name: 'pagination',
+    serverCacheKey () {
+      return Math.floor(Date.now() / 1000000)
+    },
     computed: {
       getRouteName () {
         return this.$route.name

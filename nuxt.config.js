@@ -1,8 +1,12 @@
 module.exports = {
+  cache: true,
   env: {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2',
-    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nom-de-domaine/api' : 'http://localhost:3000/api'
+    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'http://localhost:3000/api' : 'http://localhost:3000/api'
   },
+  plugins: [
+    '~/plugins/hydrate-layout-data'
+  ],
   router: {
     middleware: [
       'ssr-cookie'
