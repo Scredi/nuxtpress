@@ -13,20 +13,6 @@ module.exports = {
     name: 'page',
     mode: 'out-in'
   },
-  noScript: [
-    { innerHTML: 'Javascript est requis pour parcourir ce site.' }
-  ],
-  /*
-   ** Minification options for build
-   */
-  minify: {
-    removeEmptyAttributes: false,
-    collapseWhitespace: true,
-    conservativeCollapse: true,
-    collapseBooleanAttributes: true,
-    removeTagWhitespace: false,
-    removeStyleLinkTypeAttributes: true
-  },
   /*
   ** Headers of the page
   */

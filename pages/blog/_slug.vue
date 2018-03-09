@@ -55,8 +55,8 @@
         ]
       }
     },
-    async asyncData (params) {
-      const post = await getPostBySlug(params.params.slug)
+    async asyncData ({params}) {
+      const post = await getPostBySlug(params.slug)
       return {
         post
       }
