@@ -1,14 +1,17 @@
 <template>
-  <Posts :posts="posts" />
+    <div>
+        <Posts :posts="posts" />
+        <Pagination :totalPages="posts.totalPages" :page="page" />
+    </div>
 </template>
 
 <script>
   import Posts from '~/components/Posts.vue'
+  import Pagination from '~/components/Pagination'
   import { getPaginatedPosts } from '~/api/api'
 
   export default {
-    components: { Posts },
-    watchQuery: ['page'],
+    components: { Posts, Pagination },
     head () {
       return {
         title: `Blog`,
@@ -41,8 +44,13 @@
         ]
       }
     },
+    computed: {
+      page () {
+        return Number(this.$route.params.page) || 1
+      }
+    },
     async asyncData ({ params, query }) {
-      const posts = await getPaginatedPosts(10, query ? query.page : 1)
+      const posts = await getPaginatedPosts(10, params ? params.page : 1)
       return {
         posts
       }
