@@ -12,7 +12,8 @@ export const mutations = {
 
 export const actions = {
   async init ({ commit, query }) {
-    let { data } = await getPaginatedPosts(10, query ? query.page : 1)
+    let data = await getPaginatedPosts(10, query ? query.page : 1)
+    console.log(data)
     commit('setPosts', data)
   }
 }
