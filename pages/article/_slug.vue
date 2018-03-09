@@ -6,7 +6,7 @@
   import { getPostBySlug } from '~/api/api'
   import Post from '~/components/Post'
 
-  const removeTags = string => string.replace(/<(.|\n)*?>/g, '')
+  const removeTags = string => decodeURI(string.replace(/<(.|\n)*?>/g, ''))
   const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 
   export default {
@@ -55,7 +55,7 @@
         ]
       }
     },
-    async asyncData ({params}) {
+    async asyncData ({params, query}) {
       const post = await getPostBySlug(params.slug)
       return {
         post
