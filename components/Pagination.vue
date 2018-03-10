@@ -1,11 +1,12 @@
 <template>
     <nav v-if="totalPages > 1">
         <ul>
-            <li v-if="page > 1"><nuxt-link :to="{ name: getRouteName, params: { page: page-1 } }">&lt; pre</nuxt-link></li>
+            <li v-if="page > 1"><nuxt-link :to="{ to:`${getRouteName}/${getParamName}`, params: { page: page-1 } }">&lt; pre</nuxt-link></li>
             <a v-else class="disabled">&lt; pre</a>
             <span>{{ page }}/{{ totalPages }}</span>
-            <nuxt-link v-if="hasMore" :to="{ name: getRouteName, params: { page: page+1 } }">sui &gt;</nuxt-link>
+            <nuxt-link v-if="hasMore" :to="{ to: `${getRouteName}/${getParamName}`, params: { page: page+1 } }">sui &gt;</nuxt-link>
             <a v-else class="disabled">suiv &gt;</a>
+            <div>{{ getParamName }}</div>
         </ul>
     </nav>
 </template>
@@ -22,6 +23,9 @@
       },
       getRouteName () {
         return this.$route.name
+      },
+      getParamName () {
+        return this.$route.params.slug
       }
     }
   }

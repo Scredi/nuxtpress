@@ -1,4 +1,4 @@
-const { Nuxt, Builder } =  require('nuxt')
+const { Nuxt, Builder } = require('nuxt')
 
 const app = require('express')()
 const isProd = (process.env.NODE_ENV === 'production')

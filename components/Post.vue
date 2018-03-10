@@ -11,11 +11,17 @@
                 <div v-html="post.content.rendered"></div>
             </section>
         </div>
+        <div>
+            <Tags :tags="post._embedded['wp:term'][1]"/>
+        </div>
     </div>
 </template>
 
 <script>
+  import Tags from '~/components/Tags'
+
   export default {
+    components: { Tags },
     props: {
       post: { type: Object, default: () => {} }
     }

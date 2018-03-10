@@ -12,10 +12,13 @@ const endpoint = config.env.proxyApiBaseUrl
  *
  * @return {object}
  */
-export const getPaginatedPosts = async (perPage = 10, pageNumber = 1, tagId = null) => {
+export const getPaginatedPosts = async (perPage = 10, pageNumber = 1, tagId = null, categoryId = null) => {
   let url = `${endpoint}/posts?per_page=${perPage}&page=${pageNumber}`
   if (tagId) {
     url += `&tags=${tagId}`
+  }
+  if (categoryId) {
+    url += `&categories=${categoryId}`
   }
   return axios.get(url)
     .then(response => {
@@ -45,6 +48,20 @@ export const getPostBySlug = slug => {
 
 export const getTagBySlug = slug => {
   const url = `${endpoint}/tags?slug=${slug}`
+  return axios.get(url)
+    .then(r => r.data[0])
+    .catch(e => console.log(`${url} ${e.message}`))
+}
+
+export const getCategories = () => {
+  const url = `${endpoint}/categories`
+  return axios.get(url)
+    .then(r => r.data)
+    .catch(e => console.log(`${url} ${e.message}`))
+}
+
+export const getCategoryBySlug = slug => {
+  const url = `${endpoint}/categories?slug=${slug}`
   return axios.get(url)
     .then(r => r.data[0])
     .catch(e => console.log(`${url} ${e.message}`))

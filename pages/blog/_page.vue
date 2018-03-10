@@ -1,17 +1,23 @@
 <template>
     <div>
+      <div>
+        <Categories :categories="categories"/>
+      </div>
+      <div>
         <Posts :posts="posts" />
         <Pagination :totalPages="posts.totalPages" :page="page" />
+      </div>
     </div>
 </template>
 
 <script>
   import Posts from '~/components/Posts.vue'
   import Pagination from '~/components/Pagination'
-  import { getPaginatedPosts } from '~/api/api'
+  import Categories from '~/components/Categories'
+  import { getPaginatedPosts, getCategories } from '~/api/api'
 
   export default {
-    components: { Posts, Pagination },
+    components: { Posts, Pagination, Categories },
     head () {
       return {
         title: `Blog`,
@@ -51,8 +57,10 @@
     },
     async asyncData ({ params, query }) {
       const posts = await getPaginatedPosts(10, params ? params.page : 1)
+      const categories = await getCategories()
       return {
-        posts
+        posts,
+        categories
       }
     }
   }
