@@ -3,6 +3,20 @@ module.exports = {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2',
     proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? `/api` : 'http://localhost:3000/api'
   },
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': {
+      target: '/api',
+      pathRewrite: {
+        '^/api': ''
+      }
+    }
+  },
   router: {
     base: '/',
     middleware: [
@@ -36,21 +50,13 @@ module.exports = {
     'normalize.css/normalize.css',
     '~/assets/css/main.css'
   ],
-  /*
-  ** Add axios globally
-  */
   build: {
-    vendor: [
-      'axios'
-    ],
+    vendor: ['~/api/api'],
     maxChunkSize: 300000,
     /*
     ** Run ESLINT on save
     */
     extend (config, ctx) {
-      // disable uglify, does not support ES6
-      // config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin')
-
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

@@ -6,7 +6,6 @@
             <span>{{ page }}/{{ totalPages }}</span>
             <nuxt-link v-if="hasMore" :to="{ to: `${getRouteName}/${getParamName}`, params: { page: page+1 } }">sui &gt;</nuxt-link>
             <a v-else class="disabled">suiv &gt;</a>
-            <div>{{ getParamName }}</div>
         </ul>
     </nav>
 </template>

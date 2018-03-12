@@ -1,10 +1,13 @@
 const { Nuxt, Builder } = require('nuxt')
-
 const app = require('express')()
+
+const proxy = require('./api/proxy.js')
 const isProd = (process.env.NODE_ENV === 'production')
+const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-app.use('/api', require('./api/proxy.js'))
+app.set('port', port)
+app.use('/api', proxy)
 
 // We instantiate nuxt.js
 const config = require('./nuxt.config.js')
@@ -23,7 +26,7 @@ if (config.dev) {
 }
 
 // Listen the server
-app.listen(port, '0.0.0.0')
+app.listen(port, host)
 
 const currentEnv = isProd ? 'production' : 'developpement'
-console.log(`Server listening on localhost ${port} in ${currentEnv} mode`)
+console.log(`Server listening on ${host} ${port} in ${currentEnv} mode`)
