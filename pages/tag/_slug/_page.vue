@@ -22,7 +22,7 @@
       const tag = await getTagBySlug(params.slug)
       return {
         tag,
-        paginatedPostsByTagId: await getPaginatedPosts(10, params ? params.page : 1, tag.id)
+        paginatedPostsByTagId: await getPaginatedPosts(10, params ? params.page : 1, tag.id, null)
       }
     }
   }

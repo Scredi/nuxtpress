@@ -2,7 +2,7 @@
     <nav class="categories">
         <ul>
             <li v-if="categories" v-for="item in categories">
-                <nuxt-link :to="{ path: `category/${item.slug}`, params: { slug: item.slug } }" >{{ item.name }}</nuxt-link>
+                <nuxt-link :to="{ path: `/category/${item.slug}`, params: { slug: item.slug } }" >{{ item.name }}</nuxt-link>
             </li>
         </ul>
     </nav>
@@ -16,7 +16,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .categories {
 
         ul {

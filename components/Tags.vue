@@ -2,7 +2,7 @@
     <div class="tags">
         <ul>
             <li v-if="tags" v-for="tag in tags">
-                <nuxt-link :to="{ name: 'tag-slug', params: { slug: tag.slug } }">{{ tag.name }}</nuxt-link>
+                <nuxt-link :to="{ path: `/tag/${tag.slug}`, params: { slug: tag.slug } }" exact>{{ tag.name }}</nuxt-link>
             </li>
         </ul>
     </div>
@@ -11,7 +11,7 @@
 <script>
     export default {
       props: {
-        tags: this.tags
+        tags: { type: Array, default: () => [] }
       }
     }
 </script>
