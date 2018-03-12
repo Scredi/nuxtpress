@@ -15,7 +15,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "cachios": "^1.0.8",
-    "cross-env": "^5.0.1",
     "express": "^4.15.3",
     "express-session": "^1.15.6",
     "nuxt": "^1.0.0-rc3",
@@ -24,6 +23,7 @@
   "devDependencies": {
     "autoprefixer": "^8.1.0",
     "babel-eslint": "^7.2.3",
+    "cross-env": "^5.1.4",
     "eslint": "^4.3.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
