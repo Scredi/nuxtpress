@@ -55,12 +55,20 @@
         return Number(this.$route.params.page) || 1
       }
     },
-    async asyncData ({ params, query }) {
+    async asyncData ({ params }) {
       const posts = await getPaginatedPosts(10, params ? params.page : 1)
       const categories = await getCategories()
       return {
         posts,
         categories
+      }
+    },
+    async fetch ({ store }) {
+      if (store.state.posts.length === 0) {
+        await store.dispatch('loadPosts')
+      }
+      if (store.state.categories.length === 0) {
+        await store.dispatch('loadCategories')
       }
     }
   }

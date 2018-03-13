@@ -1,15 +1,13 @@
-/**
- * Proxy to request wordpress.
- * all internal /api/xxx requests are handled by this file,
- * which pass requests then to Wordpress API.
- * This let us a chance to implement custom cache of our own.
- */
-const cachios = require('cachios')
 const express = require('express')
-const config = require('../nuxt.config.js')
+const cachios = require('cachios')
+const bodyParser = require('body-parser')
 
-const router = express.Router()
+const config = require('../nuxt.config.js')
 const endpoint = config.env.wordpressApiBaseUrl
+
+const app = express()
+
+app.use(bodyParser.json())
 
 cachios.getResponseCopy = response => {
   return {
@@ -19,17 +17,17 @@ cachios.getResponseCopy = response => {
   }
 }
 
-router.get('/cache', (req, res) => {
+app.get('/cache', (req, res) => {
   res.send(JSON.stringify(cachios.cache.getStats()))
 })
 
-router.get('/cache/flush', (req, res) => {
+app.get('/cache/flush', (req, res) => {
   cachios.cache.flushAll()
   res.send('caches vidés')
 })
 
 // by default, just pass the request to Wordpress api and cache it with cachios
-router.get('*', async (req, res) => {
+app.get('*', async (req, res) => {
   const url = endpoint + req.originalUrl.replace('/api', '')
   cachios.get(url, {
     ttl: 86400 // one day, in seconds
@@ -40,4 +38,7 @@ router.get('*', async (req, res) => {
   }).catch(e => res.send(url + ' ' + e.message))
 })
 
-module.exports = router
+module.exports = {
+  path: '/api',
+  handler: app
+}

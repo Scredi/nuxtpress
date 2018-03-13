@@ -5,19 +5,20 @@
   "author": "m.p",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
-    "build": "node_modules/.bin/nuxt build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "node_modules/.bin/nuxt",
+    "build": "cross-env NODE_ENV=production node_modules/.bin/nuxt build",
+    "start": "cross-env NODE_ENV=production node_modules/.bin/nuxt start",
     "generate": "node_modules/.bin/nuxt generate",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.1.1",
+    "body-parser": "^1.18.2",
     "cachios": "^1.0.8",
-    "express": "^4.15.3",
+    "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "nuxt": "^1.0.0-rc3",
+    "nuxt": "^1.4.0",
     "source-map-support": "^0.4.15"
   },
   "devDependencies": {

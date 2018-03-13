@@ -1,8 +1,9 @@
 module.exports = {
   env: {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2',
-    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? `/api` : 'http://localhost:3000/api'
+    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? `https://nuxtpress.now.sh/api` : 'http://localhost:3000/api'
   },
+  serverMiddleware: ['~/api/proxy'],
   modules: [
     '@nuxtjs/axios'
   ],
@@ -10,12 +11,7 @@ module.exports = {
     proxy: true
   },
   proxy: {
-    '/api': {
-      target: '/api',
-      pathRewrite: {
-        '^/api': ''
-      }
-    }
+    '/api': process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh' : 'http://localhost:3000'
   },
   router: {
     base: '/',
@@ -51,7 +47,6 @@ module.exports = {
     '~/assets/css/main.css'
   ],
   build: {
-    vendor: ['~/api/api'],
     maxChunkSize: 300000,
     /*
     ** Run ESLINT on save
