@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 
-const endpoint = process.env.proxyApiBaseUrl
+const endpoint = process.env.wordpressApiBaseUrl
 
 const store = () => {
   return new Vuex.Store({
@@ -21,9 +21,9 @@ const store = () => {
         const categories = await this.$axios.get(url)
         commit('setCategories', categories.data)
       },
-      async nuxtServerInit ({ commit, state }) {
-        // todo: fix url
+      async nuxtServerInit ({ commit, state }, { res, req }) {
         const meta = await this.$axios.get('https://css-tricks.com/wp-json')
+        // todo: fix url
         commit('setMeta', meta.data)
       }
     },
@@ -44,7 +44,8 @@ const store = () => {
         state.tag = tag
       },
       setMeta (state, meta) {
-        state.meta = meta
+        state.meta.name = meta.name
+        state.meta.description = meta.description
       }
     }
   })

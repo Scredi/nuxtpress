@@ -15,7 +15,7 @@
   import Pagination from '~/components/Pagination'
   import Categories from '~/components/Categories'
 
-  const endpoint = process.env.proxyApiBaseUrl
+  const endpoint = process.env.wordpressApiBaseUrl
 
   export default {
     components: { Posts, Pagination, Categories },

@@ -2,11 +2,16 @@ const express = require('express')
 const cachios = require('cachios')
 const bodyParser = require('body-parser')
 
-const config = require('../nuxt.config.js')
-const endpoint = config.env.wordpressApiBaseUrl
+// const config = require('../nuxt.config.js')
+// const endpoint = config.env.wordpressApiBaseUrl
 
 const app = express()
 
+/* app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+}) */
 app.use(bodyParser.json())
 
 cachios.getResponseCopy = response => {
@@ -28,7 +33,8 @@ app.get('/cache/flush', (req, res) => {
 
 // by default, just pass the request to Wordpress api and cache it with cachios
 app.get('*', async (req, res) => {
-  const url = endpoint + req.originalUrl.replace('/api', '')
+  console.log(req.originalUrl)
+  const url = req.originalUrl
   cachios.get(url, {
     ttl: 86400 // one day, in seconds
   }).then(r => {
