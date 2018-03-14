@@ -2,22 +2,28 @@ import Vuex from 'vuex'
 
 const endpoint = process.env.proxyApiBaseUrl
 
-const createStore = () => {
+const store = () => {
   return new Vuex.Store({
     state: {
-      posts: null,
+      posts: [],
       post: null,
-      categories: null,
+      categories: [],
       category: null,
-      tag: null
+      meta: {
+        description: '',
+        name: ''
+      }
     },
     actions: {
-      loadCategories: async function ({ commit }) {
+      async loadCategories ({ commit }) {
         let url = `${endpoint}/categories`
         const categories = await this.$axios.get(url)
-          .then(r => r.data)
-          .catch(e => console.log(`${url} ${e.message}`))
-        return commit('setCategories', categories)
+        commit('setCategories', categories.data)
+      },
+      async nuxtServerInit ({ commit, state }) {
+        // todo: fix url
+        const meta = await this.$axios.get('https://css-tricks.com/wp-json')
+        commit('setMeta', meta.data)
       }
     },
     mutations: {
@@ -33,11 +39,11 @@ const createStore = () => {
       setCategory: (state, category) => {
         state.category = category
       },
-      setTag: (state, tag) => {
-        state.tag = tag
+      setMeta (state, meta) {
+        state.meta = meta
       }
     }
   })
 }
 
-export default createStore
+export default store

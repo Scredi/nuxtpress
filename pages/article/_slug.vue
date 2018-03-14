@@ -60,23 +60,11 @@
         return this.$store.state.post
       }
     },
-    methods: {
-      setCurrentPost () {
-        this.$store.commit('setPost', this.item)
-      }
-    },
-    created () {
-      this.setCurrentPost()
-    },
-    async asyncData ({ params, app }) {
+    async asyncData ({ store, params, app }) {
       let slug = params.slug
       let postUrl = `${endpoint}/posts?_embed&slug=${slug}`
-      const item = await app.$axios.get(postUrl)
-        .then(r => r.data[0])
-        .catch(e => console.log(`${postUrl} ${e.message}`))
-      return {
-        item
-      }
+      let post = await app.$axios.get(postUrl)
+      store.commit('setPost', post.data[0])
     }
   }
 </script>

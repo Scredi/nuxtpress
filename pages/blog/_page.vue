@@ -62,35 +62,28 @@
         return this.$store.state.posts
       }
     },
-    async asyncData ({ params, app }) {
+    async asyncData ({ params, app, store }) {
       let pageNumber = params.page ? params.page : 1
       let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}`
-      const items = await app.$axios.get(postsUrl)
-        .then(response => {
-          const data = {
-            total: Number(response.headers['x-wp-total']),
-            totalPages: Number(response.headers['x-wp-totalpages']),
-            data: response.data
-          }
-          return data
-        })
-        .catch(e => console.log(`${postsUrl} ${e.message}`))
-      return {
-        items
+      if (!store.state.posts.length) {
+        let posts = await app.$axios.get(postsUrl)
+          .then(response => {
+            const data = {
+              total: Number(response.headers['x-wp-total']),
+              totalPages: Number(response.headers['x-wp-totalpages']),
+              data: response.data
+            }
+            return data
+          })
+        store.commit('setPosts', posts)
       }
     },
     created () {
-      this.setCurrentPosts()
-    },
-    mounted () {
       this.setCategories()
     },
     methods: {
-      setCurrentPosts () {
-        this.$store.commit('setPosts', this.items)
-      },
       setCategories () {
-        if (this.$store.state.categories === null) {
+        if (!this.$store.state.categories.length) {
           this.$store.dispatch('loadCategories')
         }
       }
