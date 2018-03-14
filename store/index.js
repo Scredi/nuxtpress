@@ -5,10 +5,11 @@ const endpoint = process.env.proxyApiBaseUrl
 const store = () => {
   return new Vuex.Store({
     state: {
-      posts: [],
+      posts: null,
       post: null,
-      categories: [],
+      categories: null,
       category: null,
+      tag: null,
       meta: {
         description: '',
         name: ''
@@ -38,6 +39,9 @@ const store = () => {
       },
       setCategory: (state, category) => {
         state.category = category
+      },
+      setTag: (state, tag) => {
+        state.tag = tag
       },
       setMeta (state, meta) {
         state.meta = meta

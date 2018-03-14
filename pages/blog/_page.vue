@@ -65,25 +65,23 @@
     async asyncData ({ params, app, store }) {
       let pageNumber = params.page ? params.page : 1
       let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}`
-      if (!store.state.posts.length) {
-        let posts = await app.$axios.get(postsUrl)
-          .then(response => {
-            const data = {
-              total: Number(response.headers['x-wp-total']),
-              totalPages: Number(response.headers['x-wp-totalpages']),
-              data: response.data
-            }
-            return data
-          })
-        store.commit('setPosts', posts)
-      }
+      let posts = await app.$axios.get(postsUrl)
+        .then(response => {
+          const data = {
+            total: Number(response.headers['x-wp-total']),
+            totalPages: Number(response.headers['x-wp-totalpages']),
+            data: response.data
+          }
+          return data
+        })
+      store.commit('setPosts', posts)
     },
     created () {
       this.setCategories()
     },
     methods: {
       setCategories () {
-        if (!this.$store.state.categories.length) {
+        if (!this.$store.state.categories) {
           this.$store.dispatch('loadCategories')
         }
       }

@@ -30,7 +30,7 @@
       let slug = params.slug
       let tagUrl = `${endpoint}/tags?slug=${slug}`
       let tagItem = await app.$axios.get(tagUrl)
-      let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}&categories=${tagItem.data[0].id}`
+      let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}&tags=${tagItem.data[0].id}`
       let posts = await app.$axios.get(postsUrl)
         .then(response => {
           const data = {
@@ -40,7 +40,7 @@
           }
           return data
         })
-      store.commit('setCategory', tagItem.data[0])
+      store.commit('setTag', tagItem.data[0])
       store.commit('setPosts', posts)
     }
   }
