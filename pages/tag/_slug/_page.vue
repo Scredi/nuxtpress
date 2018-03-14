@@ -10,7 +10,7 @@
   import Posts from '~/components/Posts.vue'
   import Pagination from '~/components/Pagination'
 
-  const endpoint = process.env.proxyApiBaseUrl
+  const endpoint = process.env.wordpressApiBaseUrl
 
   export default {
     components: { Posts, Pagination },

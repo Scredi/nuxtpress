@@ -10,7 +10,7 @@ html, body {
 .page-enter-active, .page-leave-active {
   transition: .5s ease;
 }
-.page-enter, .page-leave-active {
+.page-leave-active {
   opacity: 0;
 }
 .slide-left-enter, .slide-right-leave-to {

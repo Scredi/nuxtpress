@@ -16,15 +16,13 @@ const store = () => {
       }
     },
     actions: {
-      async loadCategories ({ commit }) {
+      async nuxtServerInit ({ commit, state }, { res, req }) {
         let url = `${endpoint}/categories`
         const categories = await this.$axios.get(url)
-        commit('setCategories', categories.data)
-      },
-      async nuxtServerInit ({ commit, state }, { res, req }) {
         const meta = await this.$axios.get('https://css-tricks.com/wp-json')
         // todo: fix url
         commit('setMeta', meta.data)
+        commit('setCategories', categories.data)
       }
     },
     mutations: {

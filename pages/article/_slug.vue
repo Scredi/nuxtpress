@@ -5,7 +5,7 @@
 <script>
   import Post from '~/components/Post'
 
-  const endpoint = process.env.proxyApiBaseUrl
+  const endpoint = process.env.wordpressApiBaseUrl
   const removeTags = string => decodeURI(string.replace(/<(.|\n)*?>/g, ''))
   const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 

@@ -75,16 +75,6 @@
           return data
         })
       store.commit('setPosts', posts)
-    },
-    created () {
-      this.setCategories()
-    },
-    methods: {
-      setCategories () {
-        if (!this.$store.state.categories) {
-          this.$store.dispatch('loadCategories')
-        }
-      }
     }
   }
 </script>
