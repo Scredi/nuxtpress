@@ -1,13 +1,14 @@
 module.exports = {
   env: {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2',
-    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? `https://nuxtpress.now.sh/api` : 'http://localhost:3000/api'
+    proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh/api' : 'http://localhost:3000/api'
   },
   serverMiddleware: ['~/api/proxy'],
   modules: [
     '@nuxtjs/axios'
   ],
   axios: {
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh' : 'http://localhost:3000',
     proxy: true
   },
   proxy: {
@@ -62,5 +63,5 @@ module.exports = {
       }
     }
   },
-  postcss: [require('autoprefixer')]
+  postcss: [require('autoprefixer')({browsers: ['last 3 versions']})]
 }

@@ -7,7 +7,9 @@ const createStore = () => {
     state: {
       posts: null,
       post: null,
-      categories: null
+      categories: null,
+      category: null,
+      tag: null
     },
     actions: {
       loadCategories: async function ({ commit }) {
@@ -27,6 +29,12 @@ const createStore = () => {
       },
       setCategories: (state, categories) => {
         state.categories = categories
+      },
+      setCategory: (state, category) => {
+        state.category = category
+      },
+      setTag: (state, tag) => {
+        state.tag = tag
       }
     }
   })
