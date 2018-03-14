@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  import { getPostBySlug } from '~/api/api'
   import Post from '~/components/Post'
 
+  const endpoint = process.env.proxyApiBaseUrl
   const removeTags = string => decodeURI(string.replace(/<(.|\n)*?>/g, ''))
   const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 
@@ -55,8 +55,20 @@
         ]
       }
     },
-    async asyncData ({params, query}) {
-      const post = await getPostBySlug(params.slug)
+    methods: {
+      setCurrentPost () {
+        this.$store.commit('setPost', this.post)
+      }
+    },
+    created () {
+      this.setCurrentPost()
+    },
+    async asyncData ({ params, app }) {
+      let slug = params.slug
+      let postUrl = `${endpoint}/posts?_embed&slug=${slug}`
+      const post = await app.$axios.get(postUrl)
+        .then(r => r.data[0])
+        .catch(e => console.log(`${postUrl} ${e.message}`))
       return {
         post
       }

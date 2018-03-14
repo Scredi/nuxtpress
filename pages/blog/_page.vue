@@ -14,7 +14,8 @@
   import Posts from '~/components/Posts.vue'
   import Pagination from '~/components/Pagination'
   import Categories from '~/components/Categories'
-  import { getPaginatedPosts, getCategories } from '~/api/api'
+
+  const endpoint = process.env.proxyApiBaseUrl
 
   export default {
     components: { Posts, Pagination, Categories },
@@ -53,22 +54,40 @@
     computed: {
       page () {
         return Number(this.$route.params.page) || 1
+      },
+      categories () {
+        return this.$store.state.categories
       }
     },
-    async asyncData ({ params }) {
-      const posts = await getPaginatedPosts(10, params ? params.page : 1)
-      const categories = await getCategories()
+    async asyncData ({ params, app }) {
+      let pageNumber = params.page ? params.page : 1
+      let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}`
+      const posts = await app.$axios.get(postsUrl)
+        .then(response => {
+          const data = {
+            total: Number(response.headers['x-wp-total']),
+            totalPages: Number(response.headers['x-wp-totalpages']),
+            data: response.data
+          }
+          return data
+        })
+        .catch(e => console.log(`${postsUrl} ${e.message}`))
       return {
-        posts,
-        categories
+        posts
       }
     },
-    async fetch ({ store }) {
-      if (store.state.posts.length === 0) {
-        await store.dispatch('loadPosts')
-      }
-      if (store.state.categories.length === 0) {
-        await store.dispatch('loadCategories')
+    created () {
+      this.setCurrentPosts()
+      this.setCategories()
+    },
+    methods: {
+      setCurrentPosts () {
+        this.$store.commit('setPosts', this.posts)
+      },
+      setCategories () {
+        if (this.$store.state.categories === null) {
+          this.$store.dispatch('loadCategories')
+        }
       }
     }
   }

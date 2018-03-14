@@ -9,7 +9,8 @@
 <script>
   import Posts from '~/components/Posts.vue'
   import Pagination from '~/components/Pagination'
-  import { getCategoryBySlug, getPaginatedPosts } from '~/api/api'
+
+  const endpoint = process.env.proxyApiBaseUrl
 
   export default {
     components: { Posts, Pagination },
@@ -18,11 +19,35 @@
         return Number(this.$route.params.page) || 1
       }
     },
-    async asyncData ({ params, query }) {
-      const category = await getCategoryBySlug(params.slug)
+    created () {
+      this.setCurrentPosts()
+    },
+    methods: {
+      setCurrentPosts () {
+        this.$store.commit('setPosts', this.paginatedPostsBySlugId)
+      }
+    },
+    async asyncData ({ params, app }) {
+      let pageNumber = params.page ? params.page : 1
+      let slug = params.slug
+      let categoryUrl = `${endpoint}/categories?slug=${slug}`
+      const category = await app.$axios.get(categoryUrl)
+        .then(r => r.data[0])
+        .catch(e => console.log(`${categoryUrl} ${e.message}`))
+      let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}&categories=${category.id}`
+      const paginatedPostsBySlugId = await app.$axios.get(postsUrl)
+        .then(response => {
+          const data = {
+            total: Number(response.headers['x-wp-total']),
+            totalPages: Number(response.headers['x-wp-totalpages']),
+            data: response.data
+          }
+          return data
+        })
+        .catch(e => console.log(`${postsUrl} ${e.message}`))
       return {
         category,
-        paginatedPostsBySlugId: await getPaginatedPosts(10, params ? params.page : 1, null, category.id)
+        paginatedPostsBySlugId
       }
     }
   }

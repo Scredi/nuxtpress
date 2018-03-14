@@ -1,18 +1,12 @@
 /**
  * Get content from wordpress via REST Api
  */
-import config from '../nuxt.config.js'
-import axios from 'axios'
-const endpoint = config.env.proxyApiBaseUrl
 
-/**
- * @param {int} perPage : number of post to return per page
- * @param {int} pageNumber : current page to display
- * @param {int} tagId : filter posts by a tagId
- *
- * @return {object}
- */
-export const getPaginatedPosts = async (perPage = 10, pageNumber = 1, tagId = null, categoryId = null) => {
+/* import axios from 'axios'
+import config from '../nuxt.config.js'
+const endpoint = config.env.proxyApiBaseUrl */
+
+/* export const getPaginatedPosts = async (perPage = 10, pageNumber = 1, tagId = null, categoryId = null) => {
   let url = `${endpoint}/posts?per_page=${perPage}&page=${pageNumber}`
   if (tagId) {
     url += `&tags=${tagId}`
@@ -65,4 +59,4 @@ export const getCategoryBySlug = slug => {
   return axios.get(url)
     .then(r => r.data[0])
     .catch(e => console.log(`${url} ${e.message}`))
-}
+} */
