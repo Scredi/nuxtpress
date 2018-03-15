@@ -14,6 +14,38 @@
 
   export default {
     components: { Posts, Pagination },
+    head () {
+      return {
+        title: this.category.name,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: `${this.category.name} - description de la category`
+          },
+          {
+            property: 'og:title',
+            content: this.category.name
+          },
+          {
+            property: 'og:description',
+            content: `${this.category.name} - description de la category`
+          },
+          {
+            property: 'og:type',
+            content: 'post'
+          },
+          {
+            name: 'twitter:title',
+            content: this.category.name
+          },
+          {
+            name: 'twitter:description',
+            content: `${this.category.name} - description de la category`
+          }
+        ]
+      }
+    },
     computed: {
       page () {
         return Number(this.$route.params.page) || 1

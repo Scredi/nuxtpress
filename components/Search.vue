@@ -1,5 +1,5 @@
 <template>
-    <section id="search" role="search" ref="autoSuggest" :class="{'search-open': searchOpen}">
+    <section v-if="routeName !== 'index'" id="search" role="search" ref="autoSuggest" :class="{'search-open': searchOpen}">
         <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
             <button class="toggle-search" title="Search" @click.prevent="toggleSearch">
                 <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
@@ -8,7 +8,7 @@
                 </svg>
             </button>
             <div class="input-container" ref="inputContainer">
-                <input name="search" placeholder="Recherche article" ref="searchQuery" type="text" v-model="searchQuery"
+                <input name="search" placeholder="Recherche..." ref="searchQuery" type="text" v-model="searchQuery"
                        @keyup.prevent="debounceSearch($event)"
                        @keydown.prevent.enter="enter"
                        @keydown.prevent.down="down"
@@ -46,7 +46,7 @@
                             <div class="col copy">
                                 <span class="title" v-html="post.title.rendered"></span>
                                 <div class="meta">
-                                    <span v-html="post.date"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in post._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
+                                    <span v-html="formatDateFr(post.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in post._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
                                 </div>
                             </div>
                         </nuxt-link>
@@ -72,6 +72,11 @@
     components: {
       Spinner
     },
+    computed: {
+      routeName () {
+        return this.$route.name
+      }
+    },
     data () {
       return {
         apiResponse: false,
@@ -89,6 +94,9 @@
           this.search()
         }
       }, 200),
+      formatDateFr (date) {
+        return new Date(date).toLocaleString('fr-FR')
+      },
       down () {
         (this.current < this.posts.length - 1)
           ? this.current++
