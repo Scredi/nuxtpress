@@ -35,7 +35,7 @@
                     <li ref="result" v-for="(post, index) in posts" :key="post.id">
                         <nuxt-link :to="`article/${post.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
                             <div class="col">
-                                <div class="lazy" v-if="post._embedded['wp:featuredmedia'][0].media_details">
+                                <div class="lazy" v-if="post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details">
                                     <img v-lazy="post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
                                 </div>
                                 <svg v-else fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,11 @@
             this.apiResponse = true
             this.spinnerVisible = false
             this.resultsVisible = true
-            this.posts = response.data
+            response.data.map((value) => {
+              if (value._embedded['wp:featuredmedia']) {
+                this.posts = response.data
+              }
+            })
           })
       },
       searchBlur () {
