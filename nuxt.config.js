@@ -3,7 +3,7 @@ module.exports = {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2'
     // proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh/api' : 'http://localhost:3000/api'
   },
-  // serverMiddleware: ['~/api/proxy'],
+  // serverMiddleware: ['~/api/test'],
   modules: [
     '@nuxtjs/axios'
   ],
@@ -18,13 +18,16 @@ module.exports = {
     }// process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh' : 'http://localhost:3000'
   }, */
   router: {
-    base: '/',
-    middleware: ['ssr-cookie']
+    base: '/'
+    // middleware: ['ssr-cookie']
   },
   transition: {
     name: 'page',
     mode: 'out-in'
   },
+  plugins: [
+    { src: '~plugins/vue-lazyload', ssr: false }
+  ],
   /*
   ** Headers of the page
   */

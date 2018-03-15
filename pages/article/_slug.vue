@@ -55,9 +55,9 @@
         ]
       }
     },
-    computed: {
-      post () {
-        return this.$store.state.post
+    data () {
+      return {
+        post: this.$store.state.post
       }
     },
     async asyncData ({ store, params, app }) {

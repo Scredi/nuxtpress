@@ -51,15 +51,15 @@
         ]
       }
     },
+    data () {
+      return {
+        posts: this.$store.state.posts,
+        categories: this.$store.state.categories
+      }
+    },
     computed: {
       page () {
         return Number(this.$route.params.page) || 1
-      },
-      categories () {
-        return this.$store.state.categories
-      },
-      posts () {
-        return this.$store.state.posts
       }
     },
     async asyncData ({ params, app, store }) {

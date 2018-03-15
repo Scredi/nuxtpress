@@ -17,12 +17,12 @@
     computed: {
       page () {
         return Number(this.$route.params.page) || 1
-      },
-      paginatedPostsByTagId () {
-        return this.$store.state.posts
-      },
-      tag () {
-        return this.$store.state.tag
+      }
+    },
+    data () {
+      return {
+        paginatedPostsByTagId: this.$store.state.posts,
+        tag: this.$store.state.tag
       }
     },
     async asyncData ({ params, app, store }) {

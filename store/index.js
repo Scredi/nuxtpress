@@ -19,10 +19,9 @@ const store = () => {
       async nuxtServerInit ({ commit, state }, { res, req }) {
         let url = `${endpoint}/categories`
         const categories = await this.$axios.get(url)
-        const meta = await this.$axios.get('https://css-tricks.com/wp-json')
-        // todo: fix url
-        commit('setMeta', meta.data)
-        commit('setCategories', categories.data)
+        if (state.categories === null) {
+          commit('setCategories', categories.data)
+        }
       }
     },
     mutations: {
