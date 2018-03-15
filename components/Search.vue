@@ -33,7 +33,7 @@
             <transition name="fade">
                 <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
                     <li ref="result" v-for="(post, index) in posts" :key="post.id">
-                        <nuxt-link :to="`article/${post.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
+                        <nuxt-link :to="`/article/${post.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
                             <div class="col">
                                 <div class="lazy" v-if="post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details">
                                     <img v-lazy="post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
