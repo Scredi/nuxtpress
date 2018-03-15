@@ -105,15 +105,10 @@
         this.spinnerVisible = true
         this.$axios.get(`${endpoint}/posts?search=${this.searchQuery}&_embed&per_page=5`)
           .then(response => {
-            console.log(response)
             this.apiResponse = true
             this.spinnerVisible = false
             this.resultsVisible = true
-            response.data.map((value) => {
-              if (value._embedded['wp:featuredmedia']) {
-                this.posts = response.data
-              }
-            })
+            this.posts = response.data
           })
       },
       searchBlur () {

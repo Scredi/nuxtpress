@@ -54,7 +54,8 @@
     data () {
       return {
         posts: this.$store.state.posts,
-        categories: this.$store.state.categories
+        categories: this.$store.state.categories,
+        transition: 'slide-right'
       }
     },
     computed: {
@@ -78,3 +79,7 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

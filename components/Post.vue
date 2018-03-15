@@ -32,5 +32,15 @@
     .post {
         max-width: 60%;
         margin: 0 auto;
+        overflow: hidden;
+    }
+</style>
+<style lang="scss">
+    figure {
+
+        img {
+            display: block;
+            width: 100%;
+        }
     }
 </style>

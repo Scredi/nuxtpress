@@ -1,25 +1,15 @@
 module.exports = {
   env: {
     wordpressApiBaseUrl: 'https://css-tricks.com/wp-json/wp/v2'
-    // proxyApiBaseUrl: process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh/api' : 'http://localhost:3000/api'
   },
-  // serverMiddleware: ['~/api/test'],
   modules: [
     '@nuxtjs/axios'
   ],
   axios: {
     baseURL: process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh' : 'http://localhost:3000'
-    // proxy: true
   },
-  /* proxy: {
-    '/api': {
-      target: 'https://css-tricks.com/wp-json/wp/v2',
-      pathRewrite: { '^/api': '' }
-    }// process.env.NODE_ENV === 'production' ? 'https://nuxtpress.now.sh' : 'http://localhost:3000'
-  }, */
   router: {
     base: '/'
-    // middleware: ['ssr-cookie']
   },
   transition: {
     name: 'page',
