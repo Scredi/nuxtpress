@@ -95,7 +95,8 @@
         }
       }, 200),
       formatDateFr (date) {
-        return new Date(date).toLocaleString('fr-FR')
+        let newDate = new Date(date)
+        return new Intl.DateTimeFormat('fr-FR').format(newDate)
       },
       down () {
         (this.current < this.posts.length - 1)
@@ -141,7 +142,7 @@
           ? this.current = this.posts.length - 1
           : this.current--
       }
-    },
+    }/* ,
     watch: {
       '$route' () {
         this.apiResponse = false
@@ -150,7 +151,7 @@
         this.searchOpen = false
         this.resultsVisible = false
       }
-    }
+    } */
   }
 </script>
 
