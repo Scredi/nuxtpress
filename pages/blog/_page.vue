@@ -15,8 +15,6 @@
   import Pagination from '~/components/Pagination'
   import Categories from '~/components/Categories'
 
-  const endpoint = process.env.wordpressApiBaseUrl
-
   export default {
     components: { Posts, Pagination, Categories },
     head () {
@@ -54,8 +52,7 @@
     data () {
       return {
         posts: this.$store.state.posts,
-        categories: this.$store.state.categories,
-        transition: 'slide-right'
+        categories: this.$store.state.categories
       }
     },
     computed: {
@@ -63,19 +60,8 @@
         return Number(this.$route.params.page) || 1
       }
     },
-    async asyncData ({ params, app, store }) {
-      let pageNumber = params.page ? params.page : 1
-      let postsUrl = `${endpoint}/posts?per_page=10&page=${pageNumber}`
-      let posts = await app.$axios.get(postsUrl)
-        .then(response => {
-          const data = {
-            total: Number(response.headers['x-wp-total']),
-            totalPages: Number(response.headers['x-wp-totalpages']),
-            data: response.data
-          }
-          return data
-        })
-      store.commit('setPosts', posts)
+    async fetch ({ store }) {
+      await store.dispatch('getPaginatedPosts')
     }
   }
 </script>

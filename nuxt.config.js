@@ -16,7 +16,8 @@ module.exports = {
     mode: 'out-in'
   },
   plugins: [
-    { src: '~plugins/vue-lazyload', ssr: false }
+    { src: '~plugins/vue-lazyload', ssr: false },
+    { src: '~plugins/axios-plugin' }
   ],
   /*
   ** Headers of the page

@@ -5,7 +5,6 @@
 <script>
   import Post from '~/components/Post'
 
-  const endpoint = process.env.wordpressApiBaseUrl
   const removeTags = string => decodeURI(string.replace(/<(.|\n)*?>/g, ''))
   const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 
@@ -60,11 +59,8 @@
         post: this.$store.state.post
       }
     },
-    async asyncData ({ store, params, app }) {
-      let slug = params.slug
-      let postUrl = `${endpoint}/posts?_embed&slug=${slug}`
-      let post = await app.$axios.get(postUrl)
-      store.commit('setPost', post.data[0])
+    async fetch ({ store }) {
+      await store.dispatch('getPostBySlug')
     }
   }
 </script>

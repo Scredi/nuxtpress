@@ -33,6 +33,10 @@
         max-width: 60%;
         margin: 0 auto;
         overflow: hidden;
+
+        @media screen and (max-width: 700px) {
+            max-width: 90%;
+        }
     }
 </style>
 <style lang="scss">

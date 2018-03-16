@@ -1,7 +1,5 @@
 import Vuex from 'vuex'
 
-const endpoint = process.env.wordpressApiBaseUrl
-
 const store = () => {
   return new Vuex.Store({
     state: {
@@ -9,19 +7,44 @@ const store = () => {
       post: null,
       categories: null,
       category: null,
-      tag: null,
-      meta: {
-        description: '',
-        name: ''
-      }
+      tag: null
     },
     actions: {
       async nuxtServerInit ({ commit, state }, { res, req }) {
-        let url = `${endpoint}/categories`
-        const categories = await this.$axios.get(url)
+        let categories = await this.$api.getCategories()
         if (state.categories === null) {
-          commit('setCategories', categories.data)
+          commit('setCategories', categories)
         }
+      },
+      async getPaginatedPosts ({ commit, state }) {
+        let pageNumber = this.app.context.route.params.page ? this.app.context.route.params.page : 1
+        const posts = await this.$api.getPaginatedPosts(10, pageNumber)
+        commit('setPosts', posts)
+      },
+      async getPaginatedPostsByTag ({ commit, state }) {
+        let slug = this.app.context.route.params.slug
+        let pageNumber = this.app.context.route.params.page ? this.app.context.route.params.page : 1
+        let tag = await this.$api.getTagBySlug(slug)
+        const posts = await this.$api.getPaginatedPosts(10, pageNumber, tag.id)
+        commit('setTag', tag)
+        commit('setPosts', posts)
+      },
+      async getPaginatedPostsByCategory ({ commit, state }) {
+        let slug = this.app.context.route.params.slug
+        let pageNumber = this.app.context.route.params.page ? this.app.context.route.params.page : 1
+        let category = await this.$api.getCategoryBySlug(slug)
+        const posts = await this.$api.getPaginatedPosts(10, pageNumber, null, category.id)
+        commit('setCategory', category)
+        commit('setPosts', posts)
+      },
+      async getPosts ({ commit, state }) {
+        const posts = await this.$api.getPosts(10)
+        commit('setPosts', posts)
+      },
+      async getPostBySlug ({ commit, state }) {
+        let slug = this.app.context.route.params.slug
+        const post = await this.$api.getPostBySlug(slug)
+        commit('setPost', post)
       }
     },
     mutations: {
@@ -39,10 +62,6 @@ const store = () => {
       },
       setTag: (state, tag) => {
         state.tag = tag
-      },
-      setMeta (state, meta) {
-        state.meta.name = meta.name
-        state.meta.description = meta.description
       }
     }
   })
