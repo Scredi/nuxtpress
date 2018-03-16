@@ -7,7 +7,8 @@ const store = () => {
       post: null,
       categories: null,
       category: null,
-      tag: null
+      tag: null,
+      comments: null
     },
     actions: {
       async nuxtServerInit ({ commit, state }, { res, req }) {
@@ -44,6 +45,8 @@ const store = () => {
       async getPostBySlug ({ commit, state }) {
         let slug = this.app.context.route.params.slug
         const post = await this.$api.getPostBySlug(slug)
+        const comments = await this.$api.getComments(post._links.replies[0].href)
+        commit('setComments', comments)
         commit('setPost', post)
       }
     },
@@ -62,6 +65,9 @@ const store = () => {
       },
       setTag: (state, tag) => {
         state.tag = tag
+      },
+      setComments: (state, comments) => {
+        state.comments = comments
       }
     }
   })

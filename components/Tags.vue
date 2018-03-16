@@ -20,14 +20,14 @@
     .tags {
 
         ul {
-            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             li {
-                display: inline-block;
                 margin: 1%;
 
                 a {
-                    padding: 2%;
                     background-color: #eaeaea;
                     color: red;
                 }

@@ -47,7 +47,7 @@
             width: 100%;
         }
     }
-    ul {
+    ul, ol {
         list-style: none;
     }
     pre {

@@ -61,7 +61,7 @@
 
 <script>
   import debounce from 'lodash/debounce'
-  import Spinner from '~/components/Spinner'
+  import Spinner from '~/components/SmallSpinner'
 
   const endpoint = process.env.wordpressApiBaseUrl
 
@@ -142,7 +142,7 @@
           ? this.current = this.posts.length - 1
           : this.current--
       }
-    }/* ,
+    },
     watch: {
       '$route' () {
         this.apiResponse = false
@@ -151,7 +151,7 @@
         this.searchOpen = false
         this.resultsVisible = false
       }
-    } */
+    }
   }
 </script>
 

@@ -1,15 +1,19 @@
 <template>
-    <Post :post="post" />
+    <div>
+        <Post :post="post" />
+        <PostComments :comments="comments" />
+    </div>
 </template>
 
 <script>
   import Post from '~/components/Post'
+  import PostComments from '~/components/PostComments'
 
   const removeTags = string => decodeURI(string.replace(/<(.|\n)*?>/g, ''))
   const validateImg = data => typeof data !== 'undefined' ? data[0].source_url : ''
 
   export default {
-    components: { Post },
+    components: { Post, PostComments },
     head () {
       return {
         title: this.post.title.rendered,
@@ -56,7 +60,8 @@
     },
     data () {
       return {
-        post: this.$store.state.post
+        post: this.$store.state.post,
+        comments: this.$store.state.comments
       }
     },
     async fetch ({ store }) {

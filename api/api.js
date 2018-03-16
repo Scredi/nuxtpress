@@ -53,6 +53,11 @@ const Api = {
     return this.$axios.get(url)
       .then(r => r.data)
       .catch(e => console.log(`${url} ${e.message}`))
+  },
+  getComments (url) {
+    return this.$axios.get(url)
+      .then(r => r.data)
+      .catch(e => console.log(`${url} ${e.message}`))
   }
 }
 
