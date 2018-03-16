@@ -6,6 +6,14 @@
                 <Spinner
                         class="spinner"
                 />
+                <p>Aucun commentaires...</p>
+            </div>
+        </transition>
+        <transition name="fade">
+            <div v-if="!comments">
+                <Spinner
+                        class="spinner"
+                />
                 <p>Chargement...</p>
             </div>
         </transition>
