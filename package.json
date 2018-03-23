@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.1.1",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
     "nuxt": "^1.4.0",
     "source-map-support": "^0.4.15"
   },
